@@ -1,0 +1,51 @@
+<!--Forms in Angular take the standard capabilities of the HTML
+ based forms and add an orchestration layer to help with creating
+  custom form controls, and to supply great validation experiences.
+   There are two parts to an Angular Reactive form, the objects that
+    live in the component to store and manage the form,
+ and the visualization of the form that lives in the template.-->
+<form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <div class="text-center mb-3">
+    <img alt="" class="mb-4" src="data:image/svg+xml;base64,
+    PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ij
+    AgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBM
+    MzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMX
+    oiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFW
+    MjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsb
+    D0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoND
+    kuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" width="100"/>
+    <h1 class="h3 mb-3 font-weight-normal">Welcome to BlockArt</h1>
+    <blockquote class="blockquote">
+      <p class="mb-0 small ">Lorem ipsum dolor sit amet.</p>
+      <footer class="blockquote-footer media-body pb-3 mb-0 lh-125 ">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+    </blockquote>
+  </div>
+
+
+  <div class="form-group" >
+    <input type="text"  id="username" class="form-control" style="font-size: small" placeholder="username" required autofocus
+           formControlName="username"><!--*ngIf="isNotPresent; else logUser"-->
+  </div>
+
+  <div class="form-group" *ngIf="value; else loading" id="if-control" >
+    <input class="form-control" type="text" style="font-size: small" placeholder="{{account}}" readonly>
+    <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray"><small class="form-text text-muted">If it
+      dosen't correspond with your BlockArt address, please check it in
+      MetaMask</small></p>
+  </div>
+
+  <div class="btn-group btn-group-toggle form-signin" data-toggle="buttons">
+    <button class="btn btn-primary active center"  routerLink="/discussions-page">Log in</button>
+    <button class="btn btn-secondary" type="submit">Sign in</button>
+  </div>
+
+  <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2019</p>
+  <ng-template #loading>
+    <input class="form-control" type="text" placeholder="Connet to MetaMask and reload the page">
+  </ng-template>
+
+  <ng-template #logUser>
+    <input type="text" id="usernamView" class="form-control" style="font-size: small" placeholder="{{username}}" required autofocus
+           formControlName="username" readonly >  </ng-template>
+</form>
+
