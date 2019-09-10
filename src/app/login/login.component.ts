@@ -20,12 +20,10 @@ export class LoginComponent implements OnInit {
   // declaration of layer to help with creating custom form controls
   loginForm;
   // declaration of the boolean to manage ngIf in html part
-  value;
+  value: boolean;
   //
-  isNotPresent;
-//
-  //
-  username;
+  username: string;
+  isNotPresent: boolean;
 
   /**
    *
@@ -41,56 +39,45 @@ export class LoginComponent implements OnInit {
   }
 
   async ngOnInit() {
+    // initialized user address
     this.account = this.service.address;
-    console.log(this.contractIns + ' ' + this.account);
+    console.log(this.account);
+    // initialized contract
+    this.contractIns = this.service.contract;
+    // check if the user is logged
+    // and set #loading in ng-template in html template file
     if (this.account === '' || this.account == null) {
-      // set #loading in ng-template in html template file
       this.value = false;
     } else {
-      // set account as default account (send transaction and call contract)
-      this.web3.eth.defaultAccount = this.account;
+      this.value = true;
     }
-    this.contractIns = this.service.contract;
-
-    // read the list of accounts the node control
-    // this.contractIns = this.service.contract;
-    // const name = this.contractIns.getName(this.service.address);
-    // console.log(name);
-    // this.contractIns.methods.getName(this.service.address).call().then(console.log);
-    await this.getUsername().then(username => {
-      console.log(username);
+    // call async method getUsername() from user.service
+    await this.service.getUsername().then(username => {
+      // set the username of the logged user
+      this.username = username;
     });
-    console.log(this.username);
+    // check if the user have a username
+    // then set *ngIf in html
+    if (this.username === '') {
+      // there isn't any registered user(user isNotPresent)
+      this.isNotPresent = true;
+    } else {
+      // there is a registered user (user !isNotPresent)
+      this.isNotPresent = false;
+    }
   }
 
-
+  /**
+   * call the function of the contract registerUser(username, address)
+   * Web3 works with asynchronous request, you must pass an optional
+   * callback as the last parameter to most functions.
+   */
   onSubmit(data) {
-    /**
-     * call the function of the contract registerUser(username, address)
-     * Web3 works with asynchronous request, you must pass an optional
-     * callback as the last parameter to most functions.
-     */
-    console.log(data);
+    console.log(data + '' + this.contractIns);
     this.contractIns.registerUser(data.username, this.account, function (error, result) {
       if (!error) {
         console.log(result);
       }
-    });
-  }
-
-  public async getUsername(): Promise<string> {
-    return new Promise((resolve, rejecct) => {
-      this.contractIns.getName(this.account, (err, res) =>{
-        console.log('i am here');
-        if (!err) {
-          this.username = res;
-          resolve(res);
-          console.log(resolve(res) + ' ' + res);
-        } else {
-          this.username = '';
-          rejecct();
-        }
-      });
     });
   }
 }

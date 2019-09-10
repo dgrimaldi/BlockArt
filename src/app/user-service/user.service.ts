@@ -3,6 +3,7 @@ import {BlockchainInjectionService} from '../injection-service/blockchain-inject
 import Web3 from 'web3';
 // @ts-ignore
 import * as UserManager from '../../../blockart-blockchain/build/contracts/UserManager.json';
+import {log} from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +11,26 @@ import * as UserManager from '../../../blockart-blockchain/build/contracts/UserM
 export class UserService {
   address;
   contract;
-  private username;
+  username;
 
   constructor(@Inject(BlockchainInjectionService) private web3: Web3) {
-    this.getAdress();
+    this.getAddress();
     this.getContract();
   }
 
-  private getAdress() {
+  private getAddress() {
     // read the list of accounts of the node
     const accounts = this.web3.eth.accounts;
     // set declared account the logged account
     this.address = accounts[0];
+    // check if the user is logged
+    if (this.address !== '' || this.address != null) {
+      // set account as default account (send transaction and call contract)
+      this.web3.eth.defaultAccount = this.address;
+    }
   }
 
-  private getContract() {
+  private async getContract() {
     // define the abi of the contract, the Contract Application Binary Interface (ABI) is
     // the standard way to interact with contracts in the Ethereum ecosystem.
     const abi = UserManager.abi;
@@ -36,9 +42,20 @@ export class UserService {
     // this.contract = new this.web3.eth(abi);
     // old method
     this.contract = contractIn.at(adddressUs);
+
   }
 
-  getUsername() {
-
+  public async getUsername(): Promise<string> {
+    return new Promise((resolve, rejecct) => {
+      this.contract.getName(this.address, (err, res) => {
+        console.log('i am here');
+        if (!err) {
+          resolve(res);
+          console.log(resolve(res) + ' ' + res);
+        } else {
+          resolve('___');
+        }
+      });
+    });
   }
 }
