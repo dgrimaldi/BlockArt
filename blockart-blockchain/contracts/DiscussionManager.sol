@@ -7,6 +7,9 @@ import "./CommentManager.sol";
 import "./ParticipantManager.sol";
 
 contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
+  //library to concat bytes
+  using ConcatHelper for bytes;
+
 
   //struct with the basic discussion information
   struct Discussion {
@@ -19,10 +22,10 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
     // moderator reputation level
     uint moderatorLev;
     // array of commentIDS
-    string disComment;
-    // array of participantIDS
-    bytes32[] disParticipant;
+    bytes disComment;
   }
+
+  // UserManager um;
 
   //map with key user_address and value a number
   mapping(string => uint) public discussionIds;
@@ -31,7 +34,7 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
   Discussion[] discussions;
 
   // event fired when an discussion is registered
-  event newDiscussionRegistered(uint id);
+  event newDiscussionRegistered(string title);
 
   constructor() public{
     // NOTE: the first discussion and participant MUST be emtpy:
@@ -40,6 +43,7 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
     // receive 0, that's why in the first position (with index 0) must be initialized
     addDiscussion("", "");
     //addParticipant("", 0, false);
+    // um = UserManager(msg.sender);
   }
   /**
   * Function to register a new discussion.
@@ -71,6 +75,7 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
     // associating the title of discussion with the new ID
     discussionIds[_title] = discussions.length;
     uint newDiscussionId = discussions.length++;
+    bytes memory _disComment = ConcatHelper.concat(_initiator, 'This is the first comment');
     // storing the new user details
     discussions[newDiscussionId] = Discussion({
       title : _title,
@@ -79,18 +84,17 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
       moderatorLev : 1,
       //new bytes32[] empty
       //disComment : new bytes32[](0),
-      disComment : '',
-      //new bytes32[] empty
-      disParticipant : new bytes32[](0)
+      disComment : _disComment
       });
     // emitting the event that a new user has been registered
-    emit newDiscussionRegistered(newDiscussionId);
+    emit newDiscussionRegistered(_title);
     return newDiscussionId;
   }
 
 
-  function getDiscussions(uint _id) public view returns (string memory, bytes32, string memory){
+  function getDiscussions(uint _id) public view returns (string memory, bytes32, bytes memory){
     Discussion storage discussion = discussions[_id];
+    //string memory initiator = getNameInitiator(discussion.initiator);
     return (discussion.title, discussion.initiator, discussion.disComment);
   }
   /*
@@ -100,9 +104,8 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
     return discussions.length;
   }
   /*
-Return all of the discussion
-  function getDiscussions() public view returns(Discussion[] memory){
-    return discussions;
-  }
-*/
+  function getNameInitiator(bytes32 _address) public view returns(string memory){
+    string memory username = um.getName(_address);
+    return username;
+  }*/
 }

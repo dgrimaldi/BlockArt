@@ -43,21 +43,32 @@ export class HomeComponent implements OnInit {
     await this.serviceU.getReputation().then(res => {
       this.reputation = res;
     });
-    await this.serviceD.getNumDis().then(ev =>{
-      this.numDis= ev;
-    })
+
+    await this.serviceD.getNumDis().then(ev => {
+      this.numDis = ev- 1;
+    });
+
     this.discussions = [];
     for (let i = 1; i <= this.numDis; i++) {
       await this.serviceD.getDiscussion(i).then(ev => {
         this.discussion = {
           title: ev[0],
           initiator: ev[1],
-          participants: ev[2],
-          comments: '',
+          comments: ev[2],
         };
         this.discussions.push(this.discussion);
       });
-    }console.log(this.discussions);
+    }
+    // start watching for a new register discussion event
+    await this.serviceD.discussionEvent().then(ev => {
+      console.log("SONO QUI TRIGGERED");
+      this.discussion = {
+        title: ev,
+        initiator: this.address,
+        comments: '',
+      };
+      this.discussions.push(this.discussion);
+    });
   }
     // match if two string are equal
     /*

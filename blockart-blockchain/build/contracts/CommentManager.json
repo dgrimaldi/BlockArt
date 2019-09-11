@@ -262,7 +262,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 141,
-        "sourceUnit": 753,
+        "sourceUnit": 756,
         "src": "27:27:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -287,10 +287,10 @@
               "id": 4,
               "name": "UserManager",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 752,
+              "referencedDeclaration": 755,
               "src": "115:11:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_UserManager_$752",
+                "typeIdentifier": "t_contract$_UserManager_$755",
                 "typeString": "contract UserManager"
               }
             },
@@ -300,7 +300,7 @@
           }
         ],
         "contractDependencies": [
-          752
+          755
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -308,7 +308,7 @@
         "id": 140,
         "linearizedBaseContracts": [
           140,
-          752
+          755
         ],
         "name": "CommentManager",
         "nodeType": "ContractDefinition",
@@ -1425,10 +1425,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        770,
-                        771
+                        773,
+                        774
                       ],
-                      "referencedDeclaration": 770,
+                      "referencedDeclaration": 773,
                       "src": "2363:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -2116,7 +2116,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 141,
-        "sourceUnit": 753,
+        "sourceUnit": 756,
         "src": "27:27:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2141,10 +2141,10 @@
               "id": 4,
               "name": "UserManager",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 752,
+              "referencedDeclaration": 755,
               "src": "115:11:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_UserManager_$752",
+                "typeIdentifier": "t_contract$_UserManager_$755",
                 "typeString": "contract UserManager"
               }
             },
@@ -2154,7 +2154,7 @@
           }
         ],
         "contractDependencies": [
-          752
+          755
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -2162,7 +2162,7 @@
         "id": 140,
         "linearizedBaseContracts": [
           140,
-          752
+          755
         ],
         "name": "CommentManager",
         "nodeType": "ContractDefinition",
@@ -3279,10 +3279,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        770,
-                        771
+                        773,
+                        774
                       ],
-                      "referencedDeclaration": 770,
+                      "referencedDeclaration": 773,
                       "src": "2363:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -4035,12 +4035,12 @@
         }
       },
       "links": {},
-      "address": "0xE2D8A796ADb033972B2dDe12D4f1daA535cb0bB1",
-      "transactionHash": "0x7ea37880b668668e73631ef0ef443e25dbe0fd1bf4d92c00029076d83563e16f"
+      "address": "0x48dc91d27F18021E69d2D364c5cd0751C47179db",
+      "transactionHash": "0xa65a0c00bc2b474f967a1d39ffc44f3a38b387e4a4e2cc60817f646e329ceffa"
     }
   },
   "schemaVersion": "3.0.13",
-  "updatedAt": "2019-09-11T18:29:56.551Z",
+  "updatedAt": "2019-09-11T20:36:13.759Z",
   "devdoc": {
     "methods": {
       "getName(bytes32)": {

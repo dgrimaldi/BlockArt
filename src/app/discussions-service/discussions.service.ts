@@ -15,6 +15,7 @@ export class DiscussionsService {
 
   constructor(@Inject(BlockchainInjectionService) private web3: Web3) {
     this.contractInizilization();
+    this.discussionEvent();
   }
 
   private contractInizilization() {
@@ -39,10 +40,12 @@ export class DiscussionsService {
     });
   }
 
-  public getDiscussion(pos): Promise<string> {
+  public async getDiscussion(pos: number): Promise<string> {
     return new Promise((res, rej) => {
       this.contract.getDiscussions(pos, (error, result) => {
         if (!error) {
+          //
+          console.log(result);
           res(result);
         } else {
           rej();
@@ -51,11 +54,26 @@ export class DiscussionsService {
     });
   }
 
-  getNumDis(): Promise<number> {
+  public async getNumDis(): Promise<number> {
     return new Promise((res, rej) => {
       this.contract.getNumDiscussion((err, result) => {
         if (!err)
+          console.log(result);
           res(result);
+      });
+    });
+  }
+
+  public async discussionEvent(): Promise<string> {
+    console.log("Sonoo qui event");
+    return new Promise((resolve, reject) => {
+      this.contract.newDiscussionRegistered().watch((e, r) => {
+        if (!e) {
+          console.log(r.args.title);
+          resolve(r.args.title);
+        } else {
+          reject();
+        }
       });
     });
   }
