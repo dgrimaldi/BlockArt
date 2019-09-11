@@ -21,8 +21,9 @@ contract UserManager {
   // Array of User that holds the list of users and their details
   User[] users;
 
-  // event fired when an user is registered
-  event newUserRegistered(uint id);
+  // two events fired when an user is registered
+  event newUserRegistered(string username);
+  event isNotRegisteredEvent(bool isNotregistered);
 
   // event fired when the user updates his status or name
   event userUpdateRepEvent(uint id);
@@ -83,7 +84,8 @@ contract UserManager {
       numEvaluation : 0
       });
     // emitting the event that a new user has been registered
-    emit newUserRegistered(newUserId);
+    emit newUserRegistered(_username);
+    emit isNotRegisteredEvent(false);
     return newUserId;
   }
 

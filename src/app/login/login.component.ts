@@ -58,13 +58,24 @@ export class LoginComponent implements OnInit {
     });
     // check if the user have a username
     // then set *ngIf in html
-    if (this.username === '') {
+    if (this.username === '' || this.username === '___') {
       // there isn't any registered user(user isNotPresent)
       this.isNotPresent = true;
+      // start watching if there is an username through solidity event
+      await this.service.eventNewUser().then(event => {
+        this.username = event;
+      });
     } else {
       // there is a registered user (user !isNotPresent)
       this.isNotPresent = false;
+      console.log(this.isNotPresent);
     }
+    // start watching if there is an user through solidity event
+    await this.service.isNotPresentEvent().then(event => {
+      this.isNotPresent = event;
+      console.log(this.isNotPresent);
+      //
+    });
   }
 
   /**
@@ -79,8 +90,5 @@ export class LoginComponent implements OnInit {
         console.log(result);
       }
     });
-    setTimeout(function () {
-      window.location.reload();
-    }, 8500);
   }
 }

@@ -72,4 +72,28 @@ export class UserService {
       });
     });
   }
+  public async eventNewUser(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.contract.newUserRegistered().watch((err, res) => {
+        if (!err) {
+          resolve(res.args.username);
+        } else {
+          reject();
+        }
+      });
+    });
+  }
+
+  public async isNotPresentEvent(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.contract.isNotRegisteredEvent().watch((e, r) => {
+        if (!e) {
+          resolve(r.args.isNotregistered);
+          console.log(resolve(r.args.isNotregistered));
+        } else {
+          reject();
+        }
+      });
+    });
+  }
 }
