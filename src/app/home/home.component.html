@@ -1,0 +1,97 @@
+<main role="main" class="container discussion-page">
+
+
+  <div class="p-3 my-3 text-white-50 bg-dark rounded shadow-sm form-inline-new">
+    <img class="mr-3" src="data:image/svg+xml;base64,
+    PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ij
+    AgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBM
+    MzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMX
+    oiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFW
+    MjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsb
+    D0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoND
+    kuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" alt="" width="48"
+         height="48">
+    <div class="lh-100 class-hide">
+      <h6 class="mb-0 text-white lh-100">BlockArt</h6>
+      <small>Hi, {{username}}</small><br>
+      <small>Your reputation is: {{reputation}}</small>
+    </div>
+    <form class="form-inline my-2 my-lg-2 form-allignament"  [formGroup]="addForm" (ngSubmit)="onSubmit()">
+      <input class="form-control mr-sm-2" type="text" placeholder="Add discussion" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">+</button>
+    </form>
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
+           preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>
+        Placeholder</title>
+        <rect width="100%" height="100%" fill="#007bff"/>
+        <text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
+      </svg>
+      <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark">@username</strong>
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+        condimentum nibh, ut fermentum massa justo sit amet risus.
+      </p>
+    </div>
+    <small class="d-block text-right mt-3">
+      <a href="#">All updates</a>
+    </small>
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
+           preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>
+        Placeholder</title>
+        <rect width="100%" height="100%" fill="#007bff"/>
+        <text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
+      </svg>
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
+           preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>
+        Placeholder</title>
+        <rect width="100%" height="100%" fill="#007bff"/>
+        <text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
+      </svg>
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
+           preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>
+        Placeholder</title>
+        <rect width="100%" height="100%" fill="#007bff"/>
+        <text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
+      </svg>
+      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <small class="d-block text-right mt-3">
+      <a href="#">All suggestions</a>
+    </small>
+  </div>
+</main>

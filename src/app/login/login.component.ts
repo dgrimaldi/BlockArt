@@ -79,5 +79,8 @@ export class LoginComponent implements OnInit {
         console.log(result);
       }
     });
+    setTimeout(function () {
+      window.location.reload();
+    }, 8500);
   }
 }

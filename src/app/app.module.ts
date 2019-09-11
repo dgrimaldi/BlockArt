@@ -1,11 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {LoginComponent} from './login/login.component';
 import {RouterModule, Routes} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
+import {HomeComponent} from './home/home.component';
 
 /**
  * In order to use the Router, you must first register the RouterModule from
@@ -13,9 +14,9 @@ import {ReactiveFormsModule} from '@angular/forms';
  * them to the RouterModule.forRoot() method.
  */
 const appRoutes: Routes = [{
-  path: 'login-page', component: LoginComponent
-}
-  // {path: 'discussions-page', component: DiscussionsPageComponent},
+  path: 'login', component: LoginComponent
+},
+  {path: 'home', component: HomeComponent},
 ];
 
 /**  @NgModule takes a metadata object
@@ -26,7 +27,8 @@ const appRoutes: Routes = [{
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -45,4 +47,5 @@ const appRoutes: Routes = [{
    */
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

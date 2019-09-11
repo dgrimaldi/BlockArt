@@ -12,6 +12,7 @@ export class UserService {
   address;
   contract;
   username;
+  reputation;
 
   constructor(@Inject(BlockchainInjectionService) private web3: Web3) {
     this.getAddress();
@@ -54,6 +55,19 @@ export class UserService {
           console.log(resolve(res) + ' ' + res);
         } else {
           resolve('___');
+        }
+      });
+    });
+  }
+
+  public async getReputation(): Promise<number> {
+    console.log(this.contract + '&&' + this.address);
+    return new Promise((res, rej) => {
+      this.contract.getReputation(this.address, (error, result) => {
+        if (!error) {
+          res(result);
+        } else {
+          rej();
         }
       });
     });

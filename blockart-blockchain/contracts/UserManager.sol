@@ -127,15 +127,29 @@ contract UserManager {
 
   /**
   * Check if the user that is calling the smart contract is registered.
+  * @param _address address of the user
   */
   function isNotRegistered(bytes32 _address) public view returns (bool) {
     return (usersIds[_address] == 0);
   }
-
+  /**
+  * Return string with name of function's caller
+  * @param _address of caller of the function
+  */
   function getName(bytes32 _address) public view returns (string memory){
     uint userId = usersIds[_address];
     User storage user = users[userId];
     return user.username;
   }
+  /**
+  * Return uint256 with reputation value of function's caller
+  * @param _address of caller of the function
+  */
+  function getReputation(bytes32 _address) public view returns(uint256){
+    uint userId = usersIds[_address];
+    User storage user = users[userId];
+    return user.repValue;
+  }
+
 }
 
