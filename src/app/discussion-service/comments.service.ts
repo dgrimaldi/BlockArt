@@ -1,30 +1,26 @@
 import {Inject, Injectable} from '@angular/core';
+// @ts-ignore
+import * as CommentManager from '../../../blockart-blockchain/build/contracts/CommentManager.json';
 import {BlockchainInjectionService} from '../injection-service/blockchain-injection-service.service';
 import Web3 from 'web3';
-// @ts-ignore
-import * as DiscussionManager from '../../../blockart-blockchain/build/contracts/DiscussionManager.json';
-import {Discussion} from './discussion';
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class DiscussionsService {
-  contract;
-  discussion: Discussion;
-  discussions: Discussion[];
-  private numDis: number;
+export class CommentsService {
+  private contract;
 
   constructor(@Inject(BlockchainInjectionService) private web3: Web3) {
     this.contractInizilization();
+
   }
 
   private contractInizilization() {
     // define the abi of the contract, the Contract Application Binary Interface (ABI) is
     // the standard way to interact with contracts in the Ethereum ecosystem.
-    const abi = DiscussionManager.abi;
+    const abi = CommentManager.abi;
     // set the address of the contract
-    const adddressUs = DiscussionManager.networks[5777].address;
+    const adddressUs = CommentManager.networks[5777].address;
     // creation contract object
     const contractIn = this.web3.eth.contract(abi);
     // initiate contract to the declared address
@@ -33,17 +29,24 @@ export class DiscussionsService {
     this.contract = contractIn.at(adddressUs);
   }
 
-  public addDiscussion(data, address) {
-    this.contract.registerDiscussion(data.title, address, function (e, r) {
+  /**
+   * bytes32 _author,bytes32 _title,string memory _content, bytes32 _discussionTitle)
+   // tslint:disable-next-line:no-redundant-jsdoc
+   * @param data title and content of comment
+   * @param address of author of the comment
+   * @param discussionTitle title of the discussion
+   */
+  addComment(data, address: string, discussionTitle: string) {
+    console.log(data);
+    this.contract.registerComment(address, data.title, data.content, discussionTitle,  function (e, r) {
       if (!e) {
         console.log(r);
       }
     });
   }
-
-  public async getDiscussion(pos: number): Promise<string> {
+  public async getComments(pos: number): Promise<string> {
     return new Promise((res, rej) => {
-      this.contract.getDiscussions(pos, (error, result) => {
+      this.contract.getComment(pos, (error, result) => {
         if (!error) {
           //
           console.log(result);
@@ -54,27 +57,13 @@ export class DiscussionsService {
       });
     });
   }
-
-  public async getNumDis(): Promise<number> {
+  public async getNumComments(): Promise<number> {
     return new Promise((res, rej) => {
-      this.contract.getNumDiscussion((err, result) => {
+      this.contract.getNumComments((err, result) => {
         if (!err) {
           console.log(result);
         }
         res(result);
-      });
-    });
-  }
-
-  public async discussionEvent(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.contract.newDiscussionRegistered().watch((e, r) => {
-        if (!e) {
-          console.log(r.args.title);
-          resolve(r.args.title);
-        } else {
-          reject();
-        }
       });
     });
   }

@@ -7,6 +7,7 @@ import {LoginComponent} from './login/login.component';
 import {RouterModule, Routes} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HomeComponent} from './home/home.component';
+import { DiscussionComponent } from './discussion/discussion.component';
 
 /**
  * In order to use the Router, you must first register the RouterModule from
@@ -17,8 +18,9 @@ const appRoutes: Routes = [{
   path: 'login', component: LoginComponent
 },
   {path: 'home', component: HomeComponent},
-];
 
+{path: 'discussion/:id', component: DiscussionComponent}
+];
 /**  @NgModule takes a metadata object
  * that describes how to compile a component's template and how to create an injector at runtime.
  * It identifies the module's own components, directives, and pipes, making some of them public,
@@ -28,7 +30,8 @@ const appRoutes: Routes = [{
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    DiscussionComponent
   ],
   imports: [
     BrowserModule,

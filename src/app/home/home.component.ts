@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {UserService} from '../user-service/user.service';
 import {FormBuilder} from '@angular/forms';
-import Web3 from 'web3';
-// @ts-ignore
-import * as DiscussionManager from '../../../blockart-blockchain/build/contracts/DiscussionManager.json';
 import {DiscussionsService} from '../discussions-service/discussions.service';
 import {Discussion} from '../discussions-service/discussion';
+import {Observable} from 'rxjs';
+import {BlockchainInjectionService} from '../injection-service/blockchain-injection-service.service';
+import Web3 from 'web3';
 
 
 @Component({
@@ -21,15 +21,23 @@ export class HomeComponent implements OnInit {
   reputation: number;
   // address of the user
   address;
-  // discussion structure
+  discussions: Promise<Discussion[]>;
   discussion: Discussion;
+  private numDis: number;
+  private discussionsAs: Discussion[];
+
+  // discussion structure
+  // discussion: Discussion;
   // array of discussion
-  discussions: Discussion[];
+  // discussions: Discussion[];
   // number of discussion
-  numDis: number;
+  // numDis: number;
 
 
-  constructor(private serviceU: UserService, private formBuilder: FormBuilder, private serviceD: DiscussionsService) {
+  constructor(private serviceU: UserService,
+              private formBuilder: FormBuilder,
+              private serviceD: DiscussionsService,
+              @Inject(BlockchainInjectionService) private web3: Web3) {
     this.addForm = this.formBuilder.group({
       title: ''
     });
@@ -37,38 +45,24 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.address = this.serviceU.address;
-    await this.serviceU.getUsername().then(res => {
+    await this.serviceU.getUsername(this.address).then(res => {
       this.username = res;
     });
     await this.serviceU.getReputation().then(res => {
       this.reputation = res;
     });
+    this.discussions = this.getDiscussionsUI();
 
-    await this.serviceD.getNumDis().then(ev => {
-      this.numDis = ev- 1;
-    });
-
-    this.discussions = [];
-    for (let i = 1; i <= this.numDis; i++) {
-      await this.serviceD.getDiscussion(i).then(ev => {
-        this.discussion = {
-          title: ev[0],
-          initiator: ev[1],
-          comments: ev[2],
-        };
-        this.discussions.push(this.discussion);
-      });
-    }
-    // start watching for a new register discussion event
+    /* start watching for a new register discussion event
     await this.serviceD.discussionEvent().then(ev => {
-      console.log("SONO QUI TRIGGERED");
+      console.log('SONO QUI TRIGGERED');
       this.discussion = {
         title: ev,
         initiator: this.address,
         comments: '',
       };
       this.discussions.push(this.discussion);
-    });
+    });*/
   }
     // match if two string are equal
     /*
@@ -80,7 +74,53 @@ export class HomeComponent implements OnInit {
 
 
   onSubmit(data) {
+    // @ts-ignore
+    setTimeout(this.startWatchingDiscussionEvent(), 10000);
     this.serviceD.addDiscussion(data, this.address);
+
+    // this.discussion = this.serviceD.startWatchingDiscussionEvent();
+    // const newVar = await this.discussions.push();
+  }
+
+  private async getDiscussionsUI() {
+    await this.serviceD.getNumDis().then(ev => {
+      this.numDis = ev - 1;
+    });
+    this.discussionsAs = [];
+    for (let i = 1; i <= this.numDis; i++) {
+      await this.serviceD.getDiscussion(i).then(ev => {
+        this.discussion = new Discussion(
+          this.web3.toAscii(ev[0]).replace(/\u0000/g, ''),
+          ev[1],
+          ''
+        );
+        this.discussionsAs.push(this.discussion);
+      });
+    };
+    for (let m = 0; m <= this.numDis; m++) {
+      try {
+        await this.serviceU.getUsername(this.discussionsAs[m].initiator).then(ev => {
+          this.discussionsAs[m].initiator = ev;
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    return this.discussionsAs;
+  }
+
+  async startWatchingDiscussionEvent() {
+    // start watching for a new register discussion event
+
+    await this.serviceD.discussionEvent().then(ev => {
+      console.log('YEAH WE ARE TRIGGERED THIS:' + this.web3.toAscii(ev).replace(/\u0000/g, ''));
+      this.discussion = new Discussion(
+        this.web3.toAscii(ev).replace(/\u0000/g, ''),
+        '',
+        ''
+      );
+    });
+    return this.discussion;
   }
 
 }

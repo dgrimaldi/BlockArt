@@ -14,27 +14,26 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
   //struct with the basic discussion information
   struct Discussion {
     // title of the discussion topic
-    string title;
+    bytes32 title;
     // initiator of the discussion
     bytes32 initiator;
     // the discussion is private or not
     bool isPrivate;
     // moderator reputation level
     uint moderatorLev;
-    // array of commentIDS
-    bytes disComment;
   }
+
 
   // UserManager um;
 
   //map with key user_address and value a number
-  mapping(string => uint) public discussionIds;
+  mapping(bytes32 => uint) public discussionIds;
 
   // Array of User that participate to discussions
   Discussion[] discussions;
 
   // event fired when an discussion is registered
-  event newDiscussionRegistered(string title);
+  event newDiscussionRegistered(bytes32 title);
 
   constructor() public{
     // NOTE: the first discussion and participant MUST be emtpy:
@@ -52,7 +51,7 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
   * @param _initiator The initiator address
   */
   function registerDiscussion(
-    string memory _title,
+    bytes32 _title,
     bytes32 _initiator)
   public returns (uint) {
     return addDiscussion(_title, _initiator);
@@ -66,7 +65,7 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
   * @param _initiator address of initiator of discussion
   */
   function addDiscussion(
-    string memory _title,
+    bytes32 _title,
     bytes32 _initiator)
   private returns (uint) {
     // checking if the discussion is already registered
@@ -75,28 +74,31 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
     // associating the title of discussion with the new ID
     discussionIds[_title] = discussions.length;
     uint newDiscussionId = discussions.length++;
-    bytes memory _disComment = ConcatHelper.concat(_initiator, 'This is the first comment');
     // storing the new user details
     discussions[newDiscussionId] = Discussion({
       title : _title,
       initiator : _initiator,
       isPrivate : false,
-      moderatorLev : 1,
+      moderatorLev : 1
       //new bytes32[] empty
       //disComment : new bytes32[](0),
-      disComment : _disComment
       });
     // emitting the event that a new user has been registered
     emit newDiscussionRegistered(_title);
     return newDiscussionId;
   }
 
+  /*
+  *
+  */
 
-  function getDiscussions(uint _id) public view returns (string memory, bytes32, bytes memory){
+
+  function getDiscussions(uint _id) public view returns (bytes32, bytes32){
     Discussion storage discussion = discussions[_id];
     //string memory initiator = getNameInitiator(discussion.initiator);
-    return (discussion.title, discussion.initiator, discussion.disComment);
+    return (discussion.title, discussion.initiator);
   }
+
   /*
   * return the number of discussion
   */

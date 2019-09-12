@@ -1,0 +1,79 @@
+.fa-heart{
+  color:#e74c3c;
+}
+[class^="fa fa-star"]{
+  color:#f1c40f;
+}
+.fa-quote-right{
+  font-size:.5em;
+}
+section.panel-title{
+  padding:15px;
+  padding-top:0;
+}
+#user-description{
+  height:100%;
+  border-left:2px solid #444;
+  margin:0 auto;
+  text-align:center;
+}
+figure img{
+  display :inline !important;
+}
+h4.online:before{
+  background-color:green;
+  height:10px;
+  width:10px;
+  border: 2px solid #11f464;
+}
+dt{
+  text-align:left !important;
+  width:37% !important;
+}
+dd{
+  margin-left:2% !important;
+}
+
+.panel-footer{
+  width:100%;
+  min-height:40px;
+}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.form-inline-new {
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center
+}
+.form-allignament{
+  margin-left: 48%
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+@media (max-width: 450px) {
+  .class-hide {
+    visibility: hidden;
+    display: none;
+  }
+}
+@media (max-width: 957px){
+  .form-allignament{
+    margin-left: 30%
+  }
+}
+
+.discussion-page {
+  max-width: 980px;
+}
+

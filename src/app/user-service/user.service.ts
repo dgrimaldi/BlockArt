@@ -17,6 +17,7 @@ export class UserService {
   constructor(@Inject(BlockchainInjectionService) private web3: Web3) {
     this.getAddress();
     this.getContract();
+
   }
 
   private getAddress() {
@@ -46,9 +47,9 @@ export class UserService {
 
   }
 
-  public async getUsername(): Promise<string> {
+  public async getUsername(addressU: string): Promise<string> {
     return new Promise((resolve, rejecct) => {
-      this.contract.getName(this.address, (err, res) => {
+      this.contract.getName(addressU, (err, res) => {
         console.log('i am here');
         if (!err) {
           resolve(res);

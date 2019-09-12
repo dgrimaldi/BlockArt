@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       this.value = true;
     }
     // call async method getUsername() from user.service
-    await this.service.getUsername().then(username => {
+    await this.service.getUsername(this.account).then(username => {
       // set the username of the logged user
       this.username = username;
     });
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
       //
     });
   }
-
+  //
   /**
    * call the function of the contract registerUser(username, address)
    * Web3 works with asynchronous request, you must pass an optional

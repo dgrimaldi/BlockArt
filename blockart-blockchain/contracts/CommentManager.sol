@@ -22,12 +22,14 @@ contract CommentManager is UserManager {
     uint numPosRecVote;
     // number of negative vote received
     uint numNegRecVote;
+    // title of discussion
+    bytes32 titleDis;
     // the status of the comment
     Stat stat;
   }
 
   // map with key= 'commentId'+'comment_title' and value a number
-  mapping(bytes => uint) public commentIds;
+  mapping(bytes32 => uint) public commentIds;
 
   //Array of comment
   Comment[] comments;
@@ -72,24 +74,56 @@ contract CommentManager is UserManager {
     string memory _content,
     bytes32 _discussionTitle)
   private returns (uint) {
-    bytes memory _commentKey = ConcatHelper.concat2(ConcatHelper.concat(_discussionTitle, _commentTitle), _author);
+    // bytes memory _commentKey = ConcatHelper.concat2(ConcatHelper.concat(_discussionTitle, _commentTitle), _author);
     // checking if the comment is already registered
-    uint commentId = commentIds[_commentKey];
+    uint commentId = commentIds[_discussionTitle];
     require(commentId == 0);
     // associating the title of comment with the new ID
-    commentIds[_commentKey] = comments.length;
+    commentIds[_discussionTitle] = comments.length;
     uint newCommentId = comments.length++;
     // storing the new user details
     comments[newCommentId] = Comment({
-      author : _author,
-      title : _commentTitle,
-      content : _content,
-      numPosRecVote : 0,
-      numNegRecVote : 0,
-      stat : Stat.Pending
-      });
+    author : _author,
+    title : _commentTitle,
+    content : _content,
+    numPosRecVote : 0,
+    numNegRecVote : 0,
+    stat : Stat.Pending,
+    titleDis : _discussionTitle
+    });
     // emitting the event that a new user has been registered
     emit newCommentRegistered(newCommentId);
     return newCommentId;
+  }
+  /*
+   // author of the comment
+    bytes32 author;
+    //comment title
+    bytes32 title;
+    // content of the comment
+    string content;
+    // number of positive vote received
+    uint numPosRecVote;
+    // number of negative vote received
+    uint numNegRecVote;
+    // the status of the comment
+    Stat stat;
+    */
+  function getComment(uint _id) public view returns (bytes32, bytes32, string memory, uint, uint, bytes32){
+    Comment storage c = comments[_id];
+    return (
+    c.author,
+    c.title,
+    c.content,
+    c.numPosRecVote,
+    c.numNegRecVote,
+    c.titleDis
+    );
+  }
+  /*
+  * return the number of comment
+  */
+  function getNumComments() public view returns (uint){
+    return comments.length;
   }
 }
