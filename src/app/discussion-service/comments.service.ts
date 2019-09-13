@@ -36,14 +36,20 @@ export class CommentsService {
    * @param address of author of the comment
    * @param discussionTitle title of the discussion
    */
-  addComment(data, address: string, discussionTitle: string) {
-    console.log(data);
-    this.contract.registerComment(address, data.title, data.content, discussionTitle,  function (e, r) {
-      if (!e) {
-        console.log(r);
-      }
+  public async addComment(data, address: string, discussionTitle: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.contract.registerComment(address, data.title, data.content, discussionTitle, (e, r) => {
+        if (!e) {
+          resolve(r);
+          console.log(r);
+        } else {
+          console.log(e);
+          reject();
+        }
+      });
     });
   }
+
   public async getComments(pos: number): Promise<string> {
     return new Promise((res, rej) => {
       this.contract.getComment(pos, (error, result) => {
@@ -57,14 +63,43 @@ export class CommentsService {
       });
     });
   }
+
   public async getNumComments(): Promise<number> {
     return new Promise((res, rej) => {
       this.contract.getNumComments((err, result) => {
         if (!err) {
           console.log(result);
+          res(result);
         }
-        res(result);
       });
     });
   }
+
+  /**
+   * addVoter to comment
+   * @param author of the comment
+   * @param commentTitle The title of the comment
+   * @param discussionTitle The title of the discussion
+   * @param voter of the comment
+   * @param vote true if the vote is positive and false if the vote is negative
+   */
+  public async addVote(author: string,
+                       commentTitle: string,
+                       discussionTitle: string,
+                       voter: string,
+                       vote: boolean): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this.contract.registerVote(author, commentTitle, discussionTitle, voter, vote, (e, r) => {
+          if (!e) {
+            resolve(r);
+          } else {
+            reject();
+          }
+        }
+      )
+      ;
+    });
+  }
+
+
 }

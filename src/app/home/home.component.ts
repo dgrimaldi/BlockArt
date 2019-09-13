@@ -77,6 +77,7 @@ export class HomeComponent implements OnInit {
 
   onSubmit(data) {
     this.discussions = this.newDiscussion(data);
+    this.serviceD.addParticipant(this.address, data.title, 0);
   }
 
   private async getDiscussionsUI() {

@@ -15,7 +15,8 @@ export class Comment {
               content: string,
               numPosRecVote,
               numNegRecVote,
-              disTitle: string) {
+              disTitle: string,
+              username: string) {
 
     this.author = author;
     this.title = title;
@@ -23,6 +24,7 @@ export class Comment {
     this.numPosRecVote = numPosRecVote;
     this.numNegRecVote = numNegRecVote;
     this.disTitle = disTitle;
+    this.username = username;
   }
 
   private async getUsername(author: string) {

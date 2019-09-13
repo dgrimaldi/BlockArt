@@ -4,6 +4,7 @@ import Web3 from 'web3';
 // @ts-ignore
 import * as DiscussionManager from '../../../blockart-blockchain/build/contracts/DiscussionManager.json';
 import {Discussion} from './discussion';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 
 @Injectable({
@@ -59,13 +60,33 @@ export class DiscussionsService {
     });
   }
 
+  public async addParticipant(address: string, discussionId: string, percentage: number) {
+    this.contract.setParticipantPer(address, discussionId, percentage, function (e, r) {
+      if (!e) {
+        console.log(r);
+      }
+    });
+  }
+
   public async getNumDis(): Promise<number> {
     return new Promise((res, rej) => {
       this.contract.getNumDiscussion((err, result) => {
         if (!err) {
           console.log(result);
+          res(result);
         }
-        res(result);
+      });
+    });
+  }
+
+  public async getParticipantPerUI(address: string, discussionTitle: string): Promise<number> {
+    return new Promise((resolve, rej) => {
+      this.contract.getParticipantPer(address, discussionTitle, (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          rej();
+        }
       });
     });
   }

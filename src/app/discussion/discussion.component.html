@@ -1,10 +1,10 @@
 <main role="main" class="container discussion-page">
   <div class="d-flex align-items-center p-3 my-3 rounded shadow-sm" style="background-color: whitesmoke">
     <a class="justify-content-lg-start col">{{discussionTitle}}</a>
-    <a class="justify-content-end ">Participant</a>
+    <a class="justify-content-end "> </a>
   </div>
 
-  <div class="my-3 p-3 bg-white rounded shadow-sm" *ngFor="let comment of comments | async">
+  <div class="my-3 p-3 bg-white rounded shadow-sm" *ngFor="let comment of comments | async; let i = index">
     <h6 class="border-bottom border-gray pb-2 mb-0">{{comment.title}}</h6>
     <div class="media text-muted pt-3">
       <ul style="padding-left: 0; margin-right: 4%">
@@ -15,35 +15,30 @@
           <rect style="padding-left: 4%" width="100%" height="100%" fill="#007bff"/>
           <text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
         </svg>
-        <p class="mb-0 small">{{comment.author}}</p>
+        <p class="mb-0 small" style="padding-left: 13%">{{comment.username}}</p>
       </ul>
       <p style="padding-left: 2%" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
         {{comment.content}}
       </p>
     </div>
     <div class="nav-scroller bg-white shadow-sm row" style="margin: 0% 0.8% 0% 0.8%">
-      <ul class="nav col-sm-10">
-        <li class="nav-item"><a class="nav-link" href="#">
-        Like
-        <span class="badge badge-pill bg-light align-text-bottom">{{comment.numPosRecVote}}</span>
-      </a>
-      </li>
-        <li class="nav-item"><a class="nav-link" href="#">
-          UnLike
-          <span class="badge badge-pill bg-light align-text-bottom">{{comment.numNegRecVote}}</span>
-        </a>
-        </li>
+      <ul class="nav col-sm-8">
         <li class="nav-item"><a class="nav-link" href="#">Explore</a>
         </li>
         <li class="nav-item"><a class="nav-link" href="#">Suggestions</a>
         </li>
       </ul>
-      <ul class="nav justify-content-end col-sm-2">
-        <li class="nav-item">
-          <a class="nav-link" href="#">+</a></li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">-</a></li>
-
+      <ul class="nav justify-content-end col-sm-4">
+        <li class="nav-item"><a class="nav-link" (click)="onAddVote(comment, true, i)">
+          Like
+          <span class="badge badge-pill bg-light align-text-bottom">{{comment.numPosRecVote}}</span>
+        </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" (click)="onAddVote(comment, false, i)">
+          UnLike
+          <span class="badge badge-pill bg-light align-text-bottom">{{comment.numNegRecVote}}</span>
+        </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -60,5 +55,9 @@
       <br>
       <button class="col-sm-1 justify-content-end" type="submit">Add</button>
     </form>
+  </div>
+  <div class="d-flex align-items-center p-3 my-3 rounded shadow-sm" style="background-color: whitesmoke">
+    <a class="justify-content-lg-start">The Participant are:</a> &nbsp;
+    <a *ngFor="let participant of participantsAS | async" > {{participant.username}} ({{participant.percentage}})&nbsp;</a>
   </div>
 </main>

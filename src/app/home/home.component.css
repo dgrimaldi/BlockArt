@@ -13,7 +13,7 @@
   align-items: center
 }
 .form-allignament{
-  margin-left: 48%
+  margin-left: 40%
 }
 
 @media (min-width: 768px) {
@@ -27,7 +27,7 @@
     display: none;
   }
 }
-@media (max-width: 957px){
+@media (max-width: 1000px){
   .form-allignament{
     margin-left: 30%
   }
