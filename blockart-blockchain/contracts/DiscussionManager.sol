@@ -85,7 +85,7 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
       });
     // emitting the event that a new user has been registered
     emit newDiscussionRegistered(_title);
-    return newDiscussionId;
+    return discussionId;
   }
 
   /*

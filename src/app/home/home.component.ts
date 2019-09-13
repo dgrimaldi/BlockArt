@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   discussion: Discussion;
   private numDis: number;
   private discussionsAs: Discussion[];
+  private myService;
 
   // discussion structure
   // discussion: Discussion;
@@ -64,22 +65,18 @@ export class HomeComponent implements OnInit {
       this.discussions.push(this.discussion);
     });*/
   }
-    // match if two string are equal
-    /*
-    if (this.discussion[1].match(this.address) == this.address) {
-      console.log('sono uguali');
-    } else {
-      console.log('sono diverse');
-    }*/
+
+  // match if two string are equal
+  /*
+  if (this.discussion[1].match(this.address) == this.address) {
+    console.log('sono uguali');
+  } else {
+    console.log('sono diverse');
+  }*/
 
 
   onSubmit(data) {
-    // @ts-ignore
-    setTimeout(this.startWatchingDiscussionEvent(), 10000);
-    this.serviceD.addDiscussion(data, this.address);
-
-    // this.discussion = this.serviceD.startWatchingDiscussionEvent();
-    // const newVar = await this.discussions.push();
+    this.discussions = this.newDiscussion(data);
   }
 
   private async getDiscussionsUI() {
@@ -96,7 +93,7 @@ export class HomeComponent implements OnInit {
         );
         this.discussionsAs.push(this.discussion);
       });
-    };
+    }
     for (let m = 0; m <= this.numDis; m++) {
       try {
         await this.serviceU.getUsername(this.discussionsAs[m].initiator).then(ev => {
@@ -109,18 +106,17 @@ export class HomeComponent implements OnInit {
     return this.discussionsAs;
   }
 
-  async startWatchingDiscussionEvent() {
+  private async newDiscussion(data) {
     // start watching for a new register discussion event
-
-    await this.serviceD.discussionEvent().then(ev => {
-      console.log('YEAH WE ARE TRIGGERED THIS:' + this.web3.toAscii(ev).replace(/\u0000/g, ''));
+    await this.serviceD.addDiscussion(data, this.address).then(value => {
       this.discussion = new Discussion(
-        this.web3.toAscii(ev).replace(/\u0000/g, ''),
-        '',
+        data.title,
+        this.username,
         ''
       );
+      this.discussionsAs.push(this.discussion);
     });
-    return this.discussion;
+    return this.discussionsAs;
   }
 
 }

@@ -33,11 +33,15 @@ export class DiscussionsService {
     this.contract = contractIn.at(adddressUs);
   }
 
-  public addDiscussion(data, address) {
-    this.contract.registerDiscussion(data.title, address, function (e, r) {
-      if (!e) {
-        console.log(r);
-      }
+  public async addDiscussion(data, address): Promise<string> {
+    return new Promise((res, rej) => {
+      this.contract.registerDiscussion(data.title, address, (e, r) => {
+        if (!e) {
+          res(r);
+        } else {
+          rej();
+        }
+      });
     });
   }
 
@@ -62,19 +66,6 @@ export class DiscussionsService {
           console.log(result);
         }
         res(result);
-      });
-    });
-  }
-
-  public async discussionEvent(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.contract.newDiscussionRegistered().watch((e, r) => {
-        if (!e) {
-          console.log(r.args.title);
-          resolve(r.args.title);
-        } else {
-          reject();
-        }
       });
     });
   }

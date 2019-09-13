@@ -3171,12 +3171,12 @@
         }
       },
       "links": {},
-      "address": "0x7940493AAeDc0Dc205823F6a8e3e5760421C7Be0",
-      "transactionHash": "0xe70c68741683eafd28c54450fef807504925ab181ef9203618c06697bf13ebf6"
+      "address": "0x5d97ac954002322E7E2c6AC253701Cd34b94Ec39",
+      "transactionHash": "0x49b9ab50ea0f4b99ed4699033cd06cd49be3071b23a25961aee377e572acfb43"
     }
   },
   "schemaVersion": "3.0.13",
-  "updatedAt": "2019-09-12T19:17:45.019Z",
+  "updatedAt": "2019-09-13T07:30:07.071Z",
   "devdoc": {
     "methods": {
       "getName(bytes32)": {

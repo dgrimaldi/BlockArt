@@ -4976,12 +4976,12 @@
         }
       },
       "links": {},
-      "address": "0x04e6Ddd54E2c5e5f90791Df1f83029eB1004c572",
-      "transactionHash": "0x296d7a400b50b515adaba30e69940d2fdf2268e2d3d4046ec9e5f591fd83a500"
+      "address": "0xFcBFD0D306932b5d5390de311a8ee00B1e017ee1",
+      "transactionHash": "0x37e18fec3e41b110a93c25bb798cf5b3c6684ca32e545734b665e2f76eda2b1c"
     }
   },
   "schemaVersion": "3.0.13",
-  "updatedAt": "2019-09-12T19:17:48.458Z",
+  "updatedAt": "2019-09-13T07:30:09.608Z",
   "devdoc": {
     "methods": {
       "getName(bytes32)": {
