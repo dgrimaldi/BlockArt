@@ -25,7 +25,6 @@ which connects to the [Generic JSON RPC](https://github.com/ethereum/wiki/wiki/J
 You need to run a local or remote Ethereum node to use this library.
 
 ## Truffle
-Please read the [documentation][docs] for more.
 
 [![npm](https://img.shields.io/npm/v/truffle.svg)](https://www.npmjs.com/package/truffle)
 [![npm](https://img.shields.io/npm/dm/truffle.svg)](https://www.npmjs.com/package/truffle)
@@ -37,4 +36,7 @@ Please read the [documentation][docs] for more.
 -----------------------
 
 
-Truffle is a development environment, testing framework and asset pipeline for Ethereum, aiming to make life as an Ethereum developer easier. With Truffle, you get:
+Truffle is a development environment, testing framework and asset pipeline for Ethereum, aiming to make life as an Ethereum developer easier.
+
+Please see the [Official Truffle Documentation](https://truffleframework.com/docs/) for guides, tips, and examples.
+
