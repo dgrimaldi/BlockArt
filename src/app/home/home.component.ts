@@ -6,6 +6,7 @@ import {Discussion} from '../discussions-service/discussion';
 import {Observable} from 'rxjs';
 import {BlockchainInjectionService} from '../injection-service/blockchain-injection-service.service';
 import Web3 from 'web3';
+import {ParticipantService} from '../participants-service/participant.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit {
   private numDis: number;
   private discussionsAs: Discussion[];
   private myService;
+  private isParteciper: boolean;
 
   // discussion structure
   // discussion: Discussion;
@@ -38,6 +40,7 @@ export class HomeComponent implements OnInit {
   constructor(private serviceU: UserService,
               private formBuilder: FormBuilder,
               private serviceD: DiscussionsService,
+              private serviceP: ParticipantService,
               @Inject(BlockchainInjectionService) private web3: Web3) {
     this.addForm = this.formBuilder.group({
       title: ''
@@ -77,7 +80,7 @@ export class HomeComponent implements OnInit {
 
   onSubmit(data) {
     this.discussions = this.newDiscussion(data);
-    this.serviceD.addParticipant(this.address, data.title, 0);
+    this.serviceP.addParticipant(this.address, data.title);
   }
 
   private async getDiscussionsUI() {
@@ -120,4 +123,13 @@ export class HomeComponent implements OnInit {
     return this.discussionsAs;
   }
 
+  async onClik(title: string) {
+    await this.serviceP.ifParticipantExist(title, this.address).then(value => {
+      this.isParteciper = value;
+    });
+    if (!this.isParteciper) {
+      await this.serviceP.addParticipant(this.address, title);
+    }
+
+  }
 }

@@ -1,9 +1,9 @@
 export class Participant {
-  address;
+  address: string;
   percentage;
   username: string;
 
-  constructor(address,
+  constructor(address: string,
               percentage,
               username: string) {
 

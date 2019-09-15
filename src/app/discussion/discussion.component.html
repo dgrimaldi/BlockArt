@@ -58,6 +58,6 @@
   </div>
   <div class="d-flex align-items-center p-3 my-3 rounded shadow-sm" style="background-color: whitesmoke">
     <a class="justify-content-lg-start">The Participant are:</a> &nbsp;
-    <a *ngFor="let participant of participantsAS | async" > {{participant.username}} ({{participant.percentage}})&nbsp;</a>
+    <a *ngFor="let participant of participants | async" > {{participant.username}} ({{participant.percentage}})&nbsp;</a>
   </div>
 </main>

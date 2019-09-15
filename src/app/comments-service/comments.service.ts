@@ -75,6 +75,8 @@ export class CommentsService {
     });
   }
 
+
+
   /**
    * addVoter to comment
    * @param author of the comment

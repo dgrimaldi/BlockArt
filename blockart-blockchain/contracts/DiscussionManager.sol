@@ -6,7 +6,7 @@ import "./UserManager.sol";
 import "./CommentManager.sol";
 import "./ParticipantManager.sol";
 
-contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
+contract DiscussionManager {
   //library to concat bytes
   using ConcatHelper for bytes;
 
@@ -21,8 +21,6 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
     bool isPrivate;
     // moderator reputation level
     uint moderatorLev;
-    //
-    mapping(bytes32 => uint) participants;
   }
 
 
@@ -79,38 +77,17 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
     // storing the new user details
 
     discussions[newDiscussionId] = Discussion({
-    title : _title,
-    initiator : _initiator,
-    isPrivate : false,
-    moderatorLev : 1
-    //new bytes32[] empty
-    //disComment : new bytes32[](0),
-    });
+      title : _title,
+      initiator : _initiator,
+      isPrivate : false,
+      moderatorLev : 1
+      //new bytes32[] empty
+      //disComment : new bytes32[](0),
+      });
     // emitting the event that a new user has been registered
     emit newDiscussionRegistered(_title);
     return discussionId;
   }
-
-  /*
-  *
-  */
-  function setParticipantPer(bytes32 _address, bytes32 _id, uint _percentage) public returns (uint){
-    return modifyParticipantPer(_address, _id, _percentage);
-  }
-
-  function modifyParticipantPer(bytes32 _address, bytes32 _id, uint _percentage) private returns(uint){
-    uint discussionId = discussionIds[_id];
-    Discussion storage discussion = discussions[discussionId];
-    discussion.participants[_address] = _percentage;
-    return discussionId;
-  }
-
-  function getParticipantPer(bytes32 _address, bytes32 _id) public view returns(uint){
-    uint discussionId = discussionIds[_id];
-    Discussion storage discussion = discussions[discussionId];
-    return discussion.participants[_address];
-  }
-
 
   function getDiscussions(uint _id) public view returns (bytes32, bytes32){
     Discussion storage discussion = discussions[_id];
@@ -124,6 +101,7 @@ contract DiscussionManager is UserManager, CommentManager, ParticipantManager {
   function getNumDiscussion() public view returns (uint){
     return discussions.length;
   }
+
 
   /*
   function getNameInitiator(bytes32 _address) public view returns(string memory){

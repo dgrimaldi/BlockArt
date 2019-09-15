@@ -2,6 +2,7 @@ pragma solidity ^0.5.0;
 
 import "./UserManager.sol";
 import "./ConcatHelper.sol";
+import "./DiscussionManager.sol";
 
 contract CommentManager is UserManager {
   //library to concat bytes
@@ -26,31 +27,16 @@ contract CommentManager is UserManager {
     bytes32 titleDis;
     // the status of the comment
     Stat stat;
-    //
-    bytes32[] voters;
   }
 
   // map with key= 'commentId'+'comment_title' and value a number
   mapping(bytes => uint) public commentIds;
 
   //Array of comment
-  Comment[] comments;
+  Comment[] public comments;
 
   // event fired when an comment is registered
   event newCommentRegistered(uint id);
-
-  // Modifier: check if the voter has already voted
-  modifier checkVoterIsNotAlreadyVoted(
-    bytes32 _author,
-    bytes32 _commentTitle,
-    bytes32 _discussionTitle,
-    bytes32 _voter) {
-    require(
-      isNotAlreadyVoted(_author, _commentTitle, _discussionTitle, _voter),
-      "User already voted"
-    );
-    _;
-  }
 
   constructor() public{
     // NOTE: the first comment and participant MUST be emtpy:
@@ -105,12 +91,10 @@ contract CommentManager is UserManager {
       numPosRecVote : 0,
       numNegRecVote : 0,
       stat : Stat.Pending,
-      titleDis : _discussionTitle,
-      voters : new bytes32[](0)
+      titleDis : _discussionTitle
       });
     // emitting the event that a new user has been registered
     emit newCommentRegistered(newCommentId);
-    comments[newCommentId].voters.push(_author);
     return newCommentId;
   }
   /*
@@ -141,10 +125,9 @@ contract CommentManager is UserManager {
     bytes32 _commentTitle,
     bytes32 _discussionTitle,
     bytes32 _voter,
-    bool _isPosVote
-  ) checkVoterIsNotAlreadyVoted(_author, _commentTitle, _discussionTitle, _voter)
-  public returns (uint) {
-    return addVote(_author, _commentTitle, _discussionTitle, _voter, _isPosVote);
+    bool _isPositive
+  ) public returns (uint) {
+    return addVote(_author, _commentTitle, _discussionTitle, _voter, _isPositive);
   }
 
   function addVote(
@@ -154,36 +137,25 @@ contract CommentManager is UserManager {
     bytes32 _voter,
     bool _isPosvote)
   private returns (uint){
+    // require(_author != _voter);
     bytes memory _commentKey = ConcatHelper.concat2(ConcatHelper.concat(_discussionTitle, _commentTitle), _author);
     uint commentId = commentIds[_commentKey];
     Comment storage comment = comments[commentId];
-    comment.voters.push(_voter);
     if (_isPosvote)
       comment.numPosRecVote += 1;
     else
       comment.numNegRecVote += 1;
     return commentId;
   }
-  /**
- * Check if the user that is voting is already voted.
- * @param _author address of the user
- */
-  function isNotAlreadyVoted(
+
+  function getVote(
     bytes32 _author,
     bytes32 _commentTitle,
-    bytes32 _discussionTitle,
-    bytes32 _voter)
-  public view returns (bool) {
+    bytes32 _discussionTitle
+  ) public view returns (uint, uint){
     bytes memory _commentKey = ConcatHelper.concat2(ConcatHelper.concat(_discussionTitle, _commentTitle), _author);
     uint commentId = commentIds[_commentKey];
     Comment storage comment = comments[commentId];
-    bool isNotPresent = true;
-    for (uint i; i < comment.voters.length; i++) {
-      if (comment.voters[i] == _voter) {
-        isNotPresent = false;
-        return isNotPresent;
-      }
-    }
-    return isNotPresent;
+    return (comment.numPosRecVote, comment.numNegRecVote);
   }
 }
