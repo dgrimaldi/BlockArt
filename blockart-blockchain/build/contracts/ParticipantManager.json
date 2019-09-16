@@ -16053,12 +16053,12 @@
         }
       },
       "links": {},
-      "address": "0xC4E0365ABf23Be9e40435BAD5bb881592AB47a17",
-      "transactionHash": "0xd9321f1ce0d8d83bce813a1da4cc1f921800ea6d9498c3e6645efea416d7f4d3"
+      "address": "0x9A03460e040442a722c49BaFD73e3e3aE69A13A1",
+      "transactionHash": "0xc1f3a9ca1350a505b7f83261c7d027f6dbc0af39206d004b478a140ca26ec4b7"
     }
   },
   "schemaVersion": "3.0.13",
-  "updatedAt": "2019-09-15T17:47:21.757Z",
+  "updatedAt": "2019-09-16T19:12:17.861Z",
   "devdoc": {
     "methods": {
       "getName(bytes32)": {

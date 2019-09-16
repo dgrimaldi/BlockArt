@@ -6764,12 +6764,12 @@
         }
       },
       "links": {},
-      "address": "0x9bE374Ed05876053164ffFDB37C2BB44bE491436",
-      "transactionHash": "0xcbb54d907f97dca7f8cc2d95e6d2c9c824a0ad3f8602ae61847d08a7d001449f"
+      "address": "0xb9DA6aB1Abd616F29a151342e2427E5219e573b0",
+      "transactionHash": "0x2075feb3688caf5dac6de2acf4e7056f120d717bffcfe3fdfbb189f6e6721f71"
     }
   },
   "schemaVersion": "3.0.13",
-  "updatedAt": "2019-09-15T17:47:09.906Z",
+  "updatedAt": "2019-09-16T19:12:12.858Z",
   "devdoc": {
     "methods": {
       "getName(bytes32)": {

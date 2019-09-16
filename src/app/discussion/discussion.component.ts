@@ -27,7 +27,7 @@ export class DiscussionComponent implements OnInit {
   private numCom: number;
   private commentsAs: Comment[];
 
-  private participants: Promise<Participant[]>;
+  participants: Promise<Participant[]>;
   private participant: Participant;
   private participantsAS: Participant[];
   private numPar: number;

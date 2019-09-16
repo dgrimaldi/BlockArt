@@ -3757,12 +3757,12 @@
         }
       },
       "links": {},
-      "address": "0x4Ee15ABc7C486541c7B70becF265D5c7fB9a6961",
-      "transactionHash": "0x8d3cc3dd47507fd2bb8d571536b273ca3aacac465d4068e23e616faecc0beaeb"
+      "address": "0xF6B2268934d646d50223b4B4fb16d46c41B86F05",
+      "transactionHash": "0xa2181797b1164756e743517be6d5a8f8e6c149ea77f92c308b30d84049465820"
     }
   },
   "schemaVersion": "3.0.13",
-  "updatedAt": "2019-09-15T17:47:13.062Z",
+  "updatedAt": "2019-09-16T19:12:14.569Z",
   "devdoc": {
     "methods": {
       "registerDiscussion(bytes32,bytes32)": {

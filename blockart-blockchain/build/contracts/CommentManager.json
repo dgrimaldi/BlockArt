@@ -8689,12 +8689,12 @@
         }
       },
       "links": {},
-      "address": "0xc1DdBca3EcD3C433C389e29761b3A41FB5EC61e6",
-      "transactionHash": "0xe3147b599e97c4f602e524732dcb41db410d6d2a516a5ae517e78ae971f1576f"
+      "address": "0x012494C5935376E602c19826252fB257a1C9E6D0",
+      "transactionHash": "0xe26641dd420e81ecd68568c5bab7734a32c29cf3a1fab3c7e7ef4dc1463df407"
     }
   },
   "schemaVersion": "3.0.13",
-  "updatedAt": "2019-09-15T17:47:24.739Z",
+  "updatedAt": "2019-09-16T19:13:18.838Z",
   "devdoc": {
     "methods": {
       "getName(bytes32)": {
