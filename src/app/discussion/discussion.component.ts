@@ -32,6 +32,8 @@ export class DiscussionComponent implements OnInit {
   private participantsAS: Participant[];
   private numPar: number;
   private positionDiscussion: boolean[];
+  reamingVoteAs: number;
+  reamingVote: number;
 
   constructor(private _Activedroute: ActivatedRoute,
               private serviceD: DiscussionsService,
@@ -56,6 +58,7 @@ export class DiscussionComponent implements OnInit {
     });
     this.comments = this.getCommentsUI();
     this.participants = this.getParticipantsUI();
+    this.reamingVote = this.getRemaingVoteUI();
   }
 
 
@@ -66,7 +69,6 @@ export class DiscussionComponent implements OnInit {
   onAddVote(data: Comment, isPositive: boolean, pos: number) {
     this.participants = this.getAddedPercentage(isPositive, pos, data.author);
     this.comments = this.addVote(data, isPositive, pos);
-
   }
 
   private async getCommentsUI() {
@@ -166,20 +168,17 @@ export class DiscussionComponent implements OnInit {
 
   private async getAddedPercentage(isPositive: boolean, pos: number, addressRec: string) {
     await this.serviceP.givesVoteUI(this.address, isPositive, addressRec, this.discussionTitle).then(res => {
-      // this.participantsAS[pos].percentage = res;
+      this.participants = this.getParticipantsUI();
+      this.reamingVote = this.getRemaingVoteUI();
     });
-    return this.participantsAS;
+    return this.participants;
   }
 
   private async addVote(data: Comment, isPositive: boolean, pos: number) {
     await this.serviceC.addVote(data.author, data.title, this.discussionTitle, this.address, isPositive).then(res => {
-      if (isPositive) {
-        this.commentsAs[pos].numPosRecVote = +1;
-      } else {
-        this.commentsAs[pos].numNegRecVote = +1;
-      }
+      this.comments = this.getCommentsUI();
     });
-    return this.commentsAs;
+    return this.comments;
   }
 
   // private async getParticipantsUI() {
@@ -259,4 +258,10 @@ export class DiscussionComponent implements OnInit {
   //   });
   //   return this.participants;
   // }
+  private getRemaingVoteUI() {
+    this.serviceP.getReamingVotes(this.address, this.discussionTitle).then(r => {
+      this.reamingVoteAs= r;
+    });
+    return  this.reamingVoteAs;
+  }
 }

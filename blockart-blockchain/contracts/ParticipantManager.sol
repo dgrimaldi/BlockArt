@@ -218,6 +218,13 @@ contract ParticipantManager is UserManager {
     }
   }
 
+  function getRemaingVote(bytes32 _addressRem, bytes32 _discussionTitle) public view returns (uint) {
+    bytes memory _participantKey = ConcatHelper.concat(_discussionTitle, _addressRem);
+    uint participantId = participantIds[_participantKey];
+    Participant storage participant = participants[participantId];
+    return participant.numRemVote;
+  }
+
 
   function isNotVoterFinishedVote(
     bytes32 _discussionTitle,

@@ -96,7 +96,7 @@
                         "name": "abi",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1495,
+                        "referencedDeclaration": 1528,
                         "src": "145:3:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_abi",
@@ -297,7 +297,7 @@
                         "name": "abi",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1495,
+                        "referencedDeclaration": 1528,
                         "src": "277:3:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_abi",
@@ -1673,7 +1673,7 @@
                         "name": "abi",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1495,
+                        "referencedDeclaration": 1528,
                         "src": "145:3:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_abi",
@@ -1874,7 +1874,7 @@
                         "name": "abi",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1495,
+                        "referencedDeclaration": 1528,
                         "src": "277:3:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_abi",
@@ -3168,7 +3168,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.13",
-  "updatedAt": "2019-09-16T19:12:05.346Z",
+  "updatedAt": "2019-09-17T12:04:05.464Z",
   "devdoc": {
     "methods": {}
   },

@@ -100,6 +100,16 @@ export class ParticipantService {
     });
   }
 
+  async getReamingVotes(address: string, discussionTitle: string): Promise<number> {
+    return new Promise(((resolve, reject) => {
+      this.contract.getRemaingVote(address, discussionTitle, (e, r) => {
+        if (!e) {
+          resolve(r);
+        }
+      })
+    }))
+  }
+
   /**
    * function isParticipantPresent(bytes32 _disucssionTitle, bytes32 _participant)
    */

@@ -1,7 +1,7 @@
 <main role="main" class="container discussion-page">
   <div class="d-flex align-items-center p-3 my-3 rounded shadow-sm" style="background-color: whitesmoke">
     <a class="justify-content-lg-start col">{{discussionTitle}}</a>
-    <a class="justify-content-end "> </a>
+    <a class="justify-content-end ">These are of your remaining votes{{this.reamingVote}} </a>
   </div>
 
   <div class="my-3 p-3 bg-white rounded shadow-sm" *ngFor="let comment of comments | async; let i = index">
