@@ -1,5 +1,11 @@
 # BlockArt
 
+A Blockchain dapp for collaborative artistic production
+
+## Presentation
+
+A quick slideshow can be found [here](https://docs.google.com/presentation/d/1ky24oZYBvwZpXu7AZMTweFH1g9Sg0vGOgk8zXLPopNE/edit?usp=sharing)
+
 ## Angular CLI
 
 [![CircleCI branch](https://img.shields.io/circleci/project/github/angular/angular-cli/master.svg?label=circleci)](https://circleci.com/gh/angular/angular-cli) [![Dependency Status](https://david-dm.org/angular/angular-cli.svg)](https://david-dm.org/angular/angular-cli) [![devDependency Status](https://david-dm.org/angular/angular-cli/dev-status.svg)](https://david-dm.org/angular/angular-cli?type=dev) [![License](https://img.shields.io/npm/l/@angular/cli.svg)](/LICENSE) 
